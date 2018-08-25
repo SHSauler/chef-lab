@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+CHEF_VERSION='12.17.33-1'
+
 apt-get update -y -qq > /dev/null
 apt-get upgrade -y -qq > /dev/null
 apt-get -y -q install linux-headers-$(uname -r) build-essential > /dev/null
 
-wget -P /tmp https://packages.chef.io/stable/ubuntu/14.04/chef-server-core_12.11.1-1_amd64.deb > /dev/null
-dpkg -i /tmp/chef-server-core_12.11.1-1_amd64.deb
+wget -P /tmp https://packages.chef.io/stable/ubuntu/16.04/chef-server-core-${CHEF_VERSION}_amd64.deb > /dev/null
+dpkg -i /tmp/chef-server-core_${CHEF_VERSION}_amd64.deb
 
 chown -R vagrant:vagrant /home/vagrant
 
