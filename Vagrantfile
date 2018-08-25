@@ -1,19 +1,3 @@
-# Install required Vagrant plugins
-missing_plugins_installed = false
-required_plugins = %w(vagrant-cachier vagrant-hostsupdater)
-
-required_plugins.each do |plugin|
-  if !Vagrant.has_plugin? plugin
-    system "vagrant plugin install #{plugin}"
-    missing_plugins_installed = true
-  end
-end
-
-# If any plugins were missing and have been installed, re-run vagrant
-if missing_plugins_installed
-  exec "vagrant #{ARGV.join(" ")}"
-end
-
 Vagrant.configure(2) do |config|
   
   config.vm.define :chef_server do |chef_server_config|
@@ -39,17 +23,17 @@ Vagrant.configure(2) do |config|
   #     lb_config.vm.provision :shell, path: "provision/nodes.sh"
   # end
 
-  (2..3).each do |i|
-    config.vm.define "web#{i}" do |node|
-      node.vm.box = "bento/ubuntu16.04"
-      node.vm.hostname = "web#{i}"
-      node.vm.network :private_network, ip: "10.0.15.2#{i}"
-      node.vm.network "forwarded_port", guest: 80, host: "808#{i}"
-      node.vm.provider "virtualbox" do |vb|
-        vb.memory = "256"
-      end
-      node.vm.provision :shell, path: "provision/nodes.sh"
-    end
-  end
+  #(2..3).each do |i|
+  #  config.vm.define "web#{i}" do |node|
+  #    node.vm.box = "bento/ubuntu16.04"
+  #    node.vm.hostname = "web#{i}"
+  #    node.vm.network :private_network, ip: "10.0.15.2#{i}"
+  #    node.vm.network "forwarded_port", guest: 80, host: "808#{i}"
+  #    node.vm.provider "virtualbox" do |vb|
+  #      vb.memory = "256"
+  #    end
+  #    node.vm.provision :shell, path: "provision/nodes.sh"
+  #  end
+  #end
 
 end
