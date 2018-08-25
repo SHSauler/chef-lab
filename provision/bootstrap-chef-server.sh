@@ -14,7 +14,7 @@ if [ ! -d /home/vagrant/dl ]; then
 fi
 
 if [ ! -f ${DLF}${CHEF_PACKAGE} ]; then
-  wget -P ${DLF} https://packages.chef.io/stable/ubuntu/16.04/${CHEF_PACKAGE} > /dev/null
+  wget --progress=bar:force -P ${DLF} https://packages.chef.io/stable/ubuntu/16.04/${CHEF_PACKAGE} > /dev/null
 fi
 
 if [ ! $(which chef-server-ctl) ]; then
