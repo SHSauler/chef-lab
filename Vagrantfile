@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
   
   config.vm.define :chef_server do |chef_server_config|
-      chef_server_config.vm.box = "bento/ubuntu16.04"
+      chef_server_config.vm.box = "bento/ubuntu-16.04"
       chef_server_config.vm.hostname = "chef-server"
       chef_server_config.vm.network :private_network, ip: "10.0.15.10"
       chef_server_config.vm.network "forwarded_port", guest: 80, host: 8080
