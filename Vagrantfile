@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
-  
+
   config.vm.define :chef_server do |chef_server_config|
-      chef_server_config.vm.box = "bento/ubuntu-16.04"
+      chef_server_config.vm.box = "bento/ubuntu-18.04"
       chef_server_config.vm.hostname = "chef-server"
       chef_server_config.vm.network :private_network, ip: "10.0.15.10"
       chef_server_config.vm.network "forwarded_port", guest: 80, host: 8080
@@ -10,6 +10,18 @@ Vagrant.configure(2) do |config|
       end
       chef_server_config.vm.provision :shell, path: "provision/bootstrap-chef-server.sh"
   end
+
+
+  config.vm.define :chef_workstation do |chef_workstation_config|
+      chef_workstation_config.vm.box = "bento/ubuntu-18.04"
+      chef_workstation_config.vm.hostname = "workstation"
+      chef_workstation_config.vm.network :private_network, ip: "10.0.15.11"
+      chef_workstation_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+      end
+      chef_workstation_config.vm.provision :shell, path: "provision/workstation.sh"
+  end
+
 
   # Part of the exercise
   # config.vm.define :lb do |lb_config|
